@@ -2,13 +2,11 @@
 
 __version__ = "0.1.0"
 
-# Exportaciones principales (serán implementadas en fases posteriores)
-# from orbitpay.domain.account import Account
-# from orbitpay.domain.transaction import Transaction
-# from orbitpay.domain.subscription import Subscription
+from orbitpay.domain import Cuenta, Transaccion, Suscripcion
 
 __all__ = [
-    # "Account",
-    # "Transaction",
-    # "Subscription",
+    "Cuenta",
+    "Transaccion",
+    "Suscripcion",
+    "__version__",
 ]
