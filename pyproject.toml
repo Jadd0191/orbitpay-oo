@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orbitpay"
+version = "0.1.0"
+description = "Motor de pagos y suscripciones orientado a objetos"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    {name = "Tu Nombre", email = "tu.email@ejemplo.com"}
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+]
+
+# ===== CONFIGURACIÓN IMPORTANTE PARA SETUPTOOLS =====
+[tool.setuptools]
+# Especificamos que solo queremos incluir el paquete 'orbitpay'
+packages = ["orbitpay", "orbitpay.domain"]
+
+[tool.setuptools.package-dir]
+# Mapeamos el directorio 'orbitpay' al paquete 'orbitpay'
+orbitpay = "orbitpay"
+
+# ===== HERRAMIENTAS DE CALIDAD =====
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "I", "N", "W"]
+
+[tool.mypy]
+strict = true
+disallow_untyped_defs = true
+disallow_any_unimported = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.coverage.run]
+source = ["orbitpay"]
+omit = ["*/tests/*", "*/spikes/*"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = false
