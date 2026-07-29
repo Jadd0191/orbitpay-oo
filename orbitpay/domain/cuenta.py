@@ -1,7 +1,7 @@
 """Módulo de la clase Cuenta."""
 
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 import uuid
 
@@ -39,11 +39,9 @@ class Cuenta:
     
     def __post_init__(self) -> None:
         """Validar invariantes después de la creación."""
-        # Validar saldo inicial no negativo
         if self._saldo < 0:
             raise ValueError(f"El saldo inicial no puede ser negativo: {self._saldo}")
         
-        # Validar titular no vacío
         if not self.titular or not self.titular.strip():
             raise ValueError("El titular no puede estar vacío")
     
@@ -65,14 +63,11 @@ class Cuenta:
         Raises:
             MontoInvalidoError: Si el monto es negativo o cero
         """
-        # Validar monto
         if monto <= 0:
             raise MontoInvalidoError(f"Monto debe ser positivo: {monto}")
         
-        # Actualizar saldo
         self._saldo += monto
         
-        # Crear transacción
         transaccion = Transaccion(
             id=str(uuid.uuid4()),
             monto=monto,
@@ -82,7 +77,7 @@ class Cuenta:
             estado="completada"
         )
         
-        # Registrar transacción
+        # ✅ AGREGAR TRANSACCIÓN AL HISTORIAL
         self.transacciones.append(transaccion)
         
         return transaccion
@@ -101,20 +96,16 @@ class Cuenta:
             MontoInvalidoError: Si el monto es negativo o cero
             SaldoInsuficienteError: Si el saldo es insuficiente
         """
-        # Validar monto
         if monto <= 0:
             raise MontoInvalidoError(f"Monto debe ser positivo: {monto}")
         
-        # Validar saldo suficiente (INVARIANTE CRÍTICA)
         if monto > self._saldo:
             raise SaldoInsuficienteError(
                 f"Saldo insuficiente: ${self._saldo:.2f} < ${monto:.2f}"
             )
         
-        # Actualizar saldo
         self._saldo -= monto
         
-        # Crear transacción
         transaccion = Transaccion(
             id=str(uuid.uuid4()),
             monto=monto,
@@ -124,7 +115,7 @@ class Cuenta:
             estado="completada"
         )
         
-        # Registrar transacción
+        # ✅ AGREGAR TRANSACCIÓN AL HISTORIAL
         self.transacciones.append(transaccion)
         
         return transaccion

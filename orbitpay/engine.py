@@ -99,9 +99,10 @@ class Engine:
         # PASO 4: Retirar de la cuenta
         print("\n4️⃣ Retirando de la cuenta...")
         try:
-            cuenta.retirar(total, f"{descripcion} (incluye comisión)")
+            transaccion = cuenta.retirar(total, f"{descripcion} (incluye comisión)")
             print(f"   ✅ Retiro exitoso")
             print(f"   Nuevo saldo: ${cuenta.saldo:.2f}")
+            print(f"   📝 Transacción registrada: {transaccion.id[:8]}...")
         except (SaldoInsuficienteError, MontoInvalidoError) as e:
             print(f"   ❌ Error en retiro: {e}")
             self._notificar_evento("fallido", cuenta, metodo_pago, monto, str(e))
