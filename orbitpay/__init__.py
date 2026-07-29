@@ -1,6 +1,6 @@
 """OrbitPay OO - Motor de pagos orientado a objetos."""
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 from orbitpay.domain import (
     Cuenta,
@@ -9,6 +9,12 @@ from orbitpay.domain import (
     SaldoInsuficienteError,
     MontoInvalidoError,
 )
+from orbitpay.payments import (
+    MetodoPago,
+    Tarjeta,
+    Transferencia,
+    Wallet,
+)
 
 __all__ = [
     "Cuenta",
@@ -16,5 +22,9 @@ __all__ = [
     "Suscripcion",
     "SaldoInsuficienteError",
     "MontoInvalidoError",
+    "MetodoPago",
+    "Tarjeta",
+    "Transferencia",
+    "Wallet",
     "__version__",
 ]
